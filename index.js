@@ -27,7 +27,7 @@ var app = new Vue({
       this.loading = true
       try {
         // Set provider
-        const provider = 'https://api.myetherapi.com/eth'
+        const provider = 'https://verbally-immortal-stinkbug.quiknode.io/18d6f508-c5a3-4132-8d27-e2468541d53c/MFCTNtWQPzpjK82ErQZLDA==/'
         if (typeof web3 !== 'undefined') {
           web3 = new Web3(web3.currentProvider)
         } else {
@@ -86,16 +86,15 @@ async function transfer(fromAddress, fromKey, toAddress) {
       tx.sign(privateKey)
       // Serialize tx
       const serializedTx = '0x' + tx.serialize().toString('hex')
-      console.log(serializedTx)
+      return new Promise((res, rej) => {
+        // Send tx
+        web3.eth.sendSignedTransaction(serializedTx, (err, hash) => {
+          if (err) rej(err)
+          res(hash)
+        })
+      })
     })
 
-  // return new Promise((res, rej) => {
-  //   // Send tx
-  //   web3.eth.sendSignedTransaction(serializedTx, (err, hash) => {
-  //     if (err) rej(err)
-  //     res(hash)
-  //   })
-  // })
 }
 
 async function getCurrentGasPrices() {
