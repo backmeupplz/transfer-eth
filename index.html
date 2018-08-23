@@ -1,0 +1,55 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Transfer ETH</title>
+  <meta name="description" content="Service to transfer Ethereum from one wallet to another">
+  <meta name="author" content="backmeupplz">
+
+  <link rel="stylesheet" href="https://bootswatch.com/4/cyborg/bootstrap.min.css">
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <br>
+  <div class="container">
+    <h1>Hi there!</h1>
+    <p>This website uses <a href="https://github.com/ethereum/web3.js">web3</a> to transfer <b>all</b> the Ethereum from one address to another. Just enter sender address and key, as well as receiver address and hit <code>Transfer!</code>.</p>
+    <p>Don't trust this website? You shouldn't! Go check out our <a href="https://github.com/backmeupplz/transfer-eth">code on GitHub</a> to see that there is nothing fishy going on. In case you wonder — yes, this website is hosted with <a href="https://pages.github.com/">GitHub Pages</a> and could use your contribution. This website does not use cookies so you are safe from the Cookie Monster.</p>
+
+    <div id="app">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Address of the sender" v-model="sender">
+        <input type="text" class="form-control" placeholder="Private key of the sender address" v-model="key">
+        <input type="text" class="form-control" placeholder="Address that should receive Ethereum" v-model="receiver">
+      </div>
+      <button type="button" class="btn btn-primary" @click.prevent="transfer">Transfer!</button>
+      <br><br>
+      <div class="alert alert-warning" role="alert" v-if="loading">
+        Transferring...
+      </div>
+      <div class="alert alert-success" role="alert" v-if="message">
+        <strong>Well done!</strong> You successfully transferred all the Ethereum!
+      </div>
+      <div v-if="error">
+        <div class="alert alert-warning" role="alert">
+          <strong>Oh no!</strong> Something went wrong! See the error below.
+        </div>
+        <code>{{error}}</code>
+      </div>
+    </div>
+    <br>
+    <div class="text-right">
+      Made by <a href="https://t.me/borodutch">@borodutch</a>
+    </div>
+  </div>
+
+
+  <script src="index.js"></script>
+</body>
+</html>
